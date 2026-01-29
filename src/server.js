@@ -43,19 +43,6 @@ app.get("/api/me", requireAuth, (req, res) => {
 //     }
 // });
 
-app.get("/api/org", requireAuth, async (req, res) => {
-    try {
-        const org = await Organization.findById(req.user.organizationId);
-        if (!org) {
-            return res.status(404).json({ message: "Organization not found" });
-        }
-        return res.status(200).json({ organization: org });
-    } catch (err) {
-        console.error("GET /api/org error:", err);
-        return res.status(500).json({ message: "server error" });
-    }
-});
-
 app.use("/api/auth", authRoutes);
 
 const start = async () => {
